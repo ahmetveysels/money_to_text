@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
               onChanged: (value) {
                 Future.microtask(() {
                   setState(() {
-                    moneyText = moneyToText(value, unit: "₺", lang: "tr");
+                    moneyText = moneyToText(value,
+                        unit: "₺", lang: "tr", alwaysShowAfterComma: false);
                     debugPrint(moneyText);
                   });
                 });

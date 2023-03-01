@@ -158,3 +158,13 @@ String zeroText(String? lang) {
     return "Sıfır";
   }
 }
+
+String supportedLanguageCode(String? lang) {
+  if (lang == "tr") {
+    return "tr";
+  } else if (lang == "en") {
+    return "en";
+  } else {
+    return "tr";
+  }
+}
