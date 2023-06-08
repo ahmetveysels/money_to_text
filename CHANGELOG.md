@@ -1,3 +1,8 @@
+## [1.0.3]
+
+- Bug fix
+- UnitType changed with MoneyUnit
+
 ## [1.0.2]
 
 - alwaysShowAfterComma parameters added.
