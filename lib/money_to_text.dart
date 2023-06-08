@@ -4,3 +4,4 @@
 library money_to_text;
 
 export 'src/money_to_text_base.dart';
+export 'src/money_unit.dart';

@@ -41,7 +41,7 @@ Example Function 2:
 
 ```dart
     
-    String moneyText = moneyToText(3456,50, unit: "₺", lang: "tr");
+    String moneyText = moneyToText(3456,50, unit: MoneyUnit.turkishLira, lang: "tr");
 
     // Output: ÜçBin DörtYüzElliAltı Lira Elli Kuruş
     
@@ -51,7 +51,7 @@ Example Function 3:
 
 ```dart
     
-    String moneyText = moneyToText(3456,50, unit: "\$", lang: "en");
+    String moneyText = moneyToText(3456,50, unit:  MoneyUnit.dollar, lang: "en");
 
     // Output: ThreeThousand FourHundredFiftySix Dollars Fifty Cents
 
@@ -61,7 +61,7 @@ Example Function 4:
 
 ```dart
     
-    String moneyText = moneyToText(3456,50, unit: "€", lang: "en");
+    String moneyText = moneyToText(3456,50, unit:  MoneyUnit.euro, lang: "en");
 
     // Output: ThreeThousand FourHundredFiftySix Euros Fifty Cents
 

@@ -1,4 +1,5 @@
 import 'package:money_to_text/src/constant.dart';
+import 'package:money_to_text/src/money_unit.dart';
 import 'package:money_to_text/src/turkish.dart';
 
 /// Unit supported $, €, ₺
@@ -13,8 +14,7 @@ import 'package:money_to_text/src/turkish.dart';
 ///
 /// alwaysShowAfterComma=false, it will not return it if the value after the decimal point is 0 cents.
 
-String moneyToText(String money,
-    {String? unit, String? lang, bool alwaysShowAfterComma = true}) {
+String moneyToText(String money, {MoneyUnit? unit, String? lang, bool alwaysShowAfterComma = true}) {
   if (money.isNotEmpty) {
     double? comeMoney = double.tryParse(money.replaceAll(",", "."));
     if (comeMoney == null) {
@@ -27,8 +27,7 @@ String moneyToText(String money,
   }
 }
 
-String _convertTheMoney(
-    double money, String? lang, String? unit, bool alwaysShowAfterComma) {
+String _convertTheMoney(double money, String? lang, MoneyUnit? unit, bool alwaysShowAfterComma) {
   String beforeCommaText = "";
   String afterCommaText = "";
   List<String> moneyList = money.toString().split(".");
@@ -45,8 +44,7 @@ String _convertTheMoney(
     beforeComma = beforeComma.padLeft((groupLength * 3), "0");
 
     for (var i = 0; i < groupLength; i++) {
-      String activeNumber = beforeComma.toString().substring(
-          beforeComma.length - (3 * i) - 3, beforeComma.length - (3 * i));
+      String activeNumber = beforeComma.toString().substring(beforeComma.length - (3 * i) - 3, beforeComma.length - (3 * i));
       String tempGroupValue = readHundred(activeNumber, lang, i);
       beforeCommaText = tempGroupValue + beforeCommaText;
     }
@@ -71,26 +69,30 @@ String _convertTheMoney(
 
     if (afterCommaText.isEmpty && alwaysShowAfterComma == false) {
       if (supportedLanguageCode(lang) == "tr") {
-        return "${beforeCommaText.toLowerCaseTR()}${unitReadBeforeComma(unit)}"
-            .trim()
-            .replaceAll("  ", " ");
+        return "${beforeCommaText.toLowerCaseTR()}${unitReadBeforeComma(unit, int.tryParse(beforeComma) ?? 0, lang)}".trim().replaceAll("  ", " ");
       } else {
-        return "${beforeCommaText.toLowerCase()}${unitReadBeforeComma(unit)}"
-            .trim()
-            .replaceAll("  ", " ");
+        return "${beforeCommaText.toLowerCase()}${unitReadBeforeComma(unit, int.tryParse(beforeComma) ?? 0, lang)}".trim().replaceAll("  ", " ");
       }
     } else {
       if (supportedLanguageCode(lang) == "tr") {
-        return "${beforeCommaText.toLowerCaseTR()}${unitReadBeforeComma(unit)}, ${afterCommaText.toLowerCaseTR()}${unitReadAfterComma(unit)}"
-            .trim()
-            .replaceAll("  ", " ");
+        return "${beforeCommaText.toLowerCaseTR()}${unitReadBeforeComma(unit, int.tryParse(beforeComma) ?? 0, lang)}${getMiddleOperation(beforeComma)}${"${afterCommaText.toLowerCaseTR()}${unitReadAfterComma(
+          unit,
+          int.tryParse(beforeComma) ?? 0,
+          lang,
+        )}".trim().replaceAll("  ", " ")}";
       } else {
-        return "${beforeCommaText.toLowerCase()}${unitReadBeforeComma(unit)}, ${afterCommaText.toLowerCaseTR()}${unitReadAfterComma(unit)}"
-            .trim()
-            .replaceAll("  ", " ");
+        return "${beforeCommaText.toLowerCase()}${unitReadBeforeComma(unit, int.tryParse(beforeComma) ?? 0, lang)}${getMiddleOperation(beforeComma)}${afterCommaText.toLowerCaseTR()}${unitReadAfterComma(unit, int.tryParse(afterComma) ?? 0, lang)}".trim().replaceAll("  ", " ");
       }
     }
   }
+}
+
+String getMiddleOperation(String beforeComma) {
+  int va = int.tryParse(beforeComma.trim()) ?? 0;
+  if (va == 0) {
+    return "";
+  }
+  return ", ";
 }
 
 String readHundred(String activeNumber, String? lang, int i) {
@@ -111,8 +113,7 @@ String readHundred(String activeNumber, String? lang, int i) {
       } else if (yuzler == "1") {
         tempGroupValue += (hundredText(lang));
       } else {
-        tempGroupValue +=
-            "${basamakBirler(lang)[int.parse(activeNumber[0])]}${hundredText(lang)}";
+        tempGroupValue += "${basamakBirler(lang)[int.parse(activeNumber[0])]}${hundredText(lang)}";
       }
 
       ///Onlar Okuması

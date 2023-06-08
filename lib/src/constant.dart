@@ -1,3 +1,5 @@
+import 'package:money_to_text/src/money_unit.dart';
+
 String hundredText(String? lang) {
   if (lang == "tr") {
     return "Yüz";
@@ -125,27 +127,115 @@ List<String> basamakBinler(String? lang) {
   }
 }
 
-String unitReadBeforeComma(String? unit) {
-  if (unit == "tr") {
-    return "Lira";
-  } else if (unit == "\$") {
-    return "Dollars";
-  } else if (unit == "€") {
-    return "Euros";
-  } else {
-    return "Lira";
+String unitReadBeforeComma(MoneyUnit? unit, int money, String? lang) {
+  switch (unit) {
+    case MoneyUnit.turkishLira:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Lira";
+        } else if (money == 0) {
+          return "";
+        } else {
+          return "Liras";
+        }
+      } else {
+        if (money == 0) {
+          return "";
+        }
+        return "Lira";
+      }
+
+    case MoneyUnit.dollar:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Dolar";
+        } else if (money == 0) {
+          return "";
+        } else {
+          return "Dollars";
+        }
+      } else {
+        if (money == 0) {
+          return "";
+        }
+        return "Dolar";
+      }
+    case MoneyUnit.euro:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Euro";
+        } else if (money == 0) {
+          return "";
+        } else {
+          return "Euros";
+        }
+      } else {
+        if (money == 0) {
+          return "";
+        }
+        return "Euro";
+      }
+    default:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Lira";
+        } else if (money == 0) {
+          return "";
+        } else {
+          return "Liras";
+        }
+      } else {
+        if (money == 0) {
+          return "";
+        }
+        return "Lira";
+      }
   }
 }
 
-String unitReadAfterComma(String? unit) {
-  if (unit == "tr") {
-    return "Kuruş";
-  } else if (unit == "\$") {
-    return "Cents";
-  } else if (unit == "€") {
-    return "Cents";
-  } else {
-    return "Kuruş";
+String unitReadAfterComma(MoneyUnit? unit, int money, String? lang) {
+  switch (unit) {
+    case MoneyUnit.turkishLira:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Kuruş";
+        } else {
+          return "Kurus";
+        }
+      } else {
+        return "Kuruş";
+      }
+    case MoneyUnit.dollar:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Cent";
+        } else {
+          return "Cents";
+        }
+      } else {
+        return "Cent";
+      }
+    case MoneyUnit.euro:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Cent";
+        } else {
+          return "Cents";
+        }
+      } else {
+        return "Cent";
+      }
+
+    default:
+      if (money > 1) {
+        if (lang == "tr") {
+          return "Kuruş";
+        } else {
+          return "Kurus";
+        }
+      } else {
+        return "Kuruş";
+      }
   }
 }
 
