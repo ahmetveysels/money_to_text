@@ -1,6 +1,6 @@
 name: money_to_text
 description: It converts any double variable you send with this dart package to text as money
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/avdisx
 repository: https://github.com/avdisx/money_to_text
 documentation: https://github.com/avdisx/money_to_text
