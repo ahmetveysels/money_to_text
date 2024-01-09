@@ -5,7 +5,7 @@ With this flutter package, you can convert your money to text
 
 ## Features
 
-![Money To Text Screenshot](https://avseng.net/flutterpackages/money_to_text/screenshot.png)
+![Money To Text Screenshot](https://ahmetveysel.com/flutterpackages/money_to_text/screenshot.png)
 
 ## Getting started
 

@@ -1,3 +1,8 @@
+## [1.0.4]
+
+- Update ReadMe
+- Update Dart versions
+
 ## [1.0.3]
 
 - Bug fix
